@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.example.flix"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -28,4 +28,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.codepath.libraries:asynchttpclient:0.0.9'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    dependencies {
+        implementation 'com.github.bumptech.glide:glide:4.8.0'
+        // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    }
+
+
 }
