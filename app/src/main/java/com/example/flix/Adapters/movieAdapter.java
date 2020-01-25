@@ -54,7 +54,7 @@ public class movieAdapter extends RecyclerView.Adapter<movieAdapter.ViewHolder>{
         //get the movie at the passed in position
         Movie movie = movies.get(position);
         //bind the movie data into the VH
-        holder.bind(movie);
+        holder.bind(movie,position);
     }
 
     @Override
@@ -69,6 +69,7 @@ public class movieAdapter extends RecyclerView.Adapter<movieAdapter.ViewHolder>{
         TextView tvOverview;
         ImageView ivPoster;
         ImageButton imageButton;
+        ImageButton imageButton3;
         //ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
@@ -78,16 +79,16 @@ public class movieAdapter extends RecyclerView.Adapter<movieAdapter.ViewHolder>{
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             imageButton = itemView.findViewById(R.id.imageButton);
-            //ivProfile = itemView.findViewById(R.id.ivProfile);
+            imageButton3 = itemView.findViewById(R.id.imageButton3);
             container = itemView.findViewById(R.id.container);
-
 
         }
 
-        public void bind(final Movie movie) {
+        public void bind(final Movie movie,int position) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             String imageUrl;
+            int imageBtn;
             //imageButton.setEnabled(true);
 
 
@@ -95,17 +96,32 @@ public class movieAdapter extends RecyclerView.Adapter<movieAdapter.ViewHolder>{
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                 //url = backdrop
                 imageUrl = movie.getBackgroundPath();
+                imageBtn = 1;
             }
-            else
+            else {
                 imageUrl = movie.getPostPath();
-
+                imageBtn = 0;
+            }
 
             // 1. Register click listener on the whole row
             Glide.with(context).load(imageUrl).into(ivPoster);
-            if(movie.getRating()<5)
-                imageButton.setVisibility(View.GONE);
+            if (movie.getRating() < 5)
+                if(imageBtn==0) {
+                    if (imageButton != null)
+                        imageButton.setVisibility(View.GONE);
+                }
+                else
+                    if(imageButton3!=null)
+                        imageButton3.setVisibility(View.GONE);
             else
-                imageButton.setVisibility(View.VISIBLE);
+                if(imageBtn==1) {
+                    if (imageButton != null)
+                        imageButton.setVisibility(View.VISIBLE);
+                }
+                else
+                    if(imageButton3!=null)
+                        imageButton3.setVisibility(View.VISIBLE);
+
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
