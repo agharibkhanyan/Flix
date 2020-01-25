@@ -68,7 +68,7 @@ public class movieAdapter extends RecyclerView.Adapter<movieAdapter.ViewHolder>{
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
-        ImageView imageButton;
+        ImageButton imageButton;
         //ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
@@ -88,11 +88,8 @@ public class movieAdapter extends RecyclerView.Adapter<movieAdapter.ViewHolder>{
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             String imageUrl;
-            imageButton.setEnabled(true);
-            if(movie.getRating()<5)
-                imageButton.setVisibility(View.GONE);
-            else
-                imageButton.setVisibility(View.VISIBLE);
+            //imageButton.setEnabled(true);
+
 
             //if in landscape mode
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -105,6 +102,10 @@ public class movieAdapter extends RecyclerView.Adapter<movieAdapter.ViewHolder>{
 
             // 1. Register click listener on the whole row
             Glide.with(context).load(imageUrl).into(ivPoster);
+            if(movie.getRating()<5)
+                imageButton.setVisibility(View.GONE);
+            else
+                imageButton.setVisibility(View.VISIBLE);
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
